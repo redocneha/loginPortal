@@ -38,36 +38,41 @@ public class MyController{
 	@Autowired
 	private EmployeeService employeeService;
 	
-	//
-	@GetMapping(value="/sendmail/{uid}", produces= {APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE})
+	@GetMapping(value="/sendmail/{uid}")
 	public Object sendingEmail(@PathVariable("uid") String userid) {
 		long id = Long.parseLong(userid);
 		//System.out.println(userid);
-	
-    	Register e = employeeService.findById(id);
-    	
-    	//System.out.println(e.getEmailid());
-    	ObjectNode o = mapper.createObjectNode();
-    	//try {
-    		//employeeService.sendEmail(e.getEmailid(),e.getUserid());
-            e.setEmailconfirmationflag(true);
+		
+		ObjectNode o = mapper.createObjectNode();
+		
+		
+		try {
+			Register e = employeeService.findById(id);
+			
+			e.setEmailConfirmationFlag(true);
         	Register a = employeeService.save(e);
+        	
         	if(a != null) {
         		o.put("response", "Congrats! Your account has been successfully activated...");
         	}
         	else {
         		o.put("response", "Error...");
         	}
-            
-        //} 
-//    	catch (MessagingException me) {
-//            me.printStackTrace();
-//            o.put("response", "Error...");
-//        }
-    	
-    	
-    	//o.put("response", "Email Has been successfully sent");
-    	
+        	
+//			o.put("response", "Email Has been successfully sent"); 
+//			try {
+//        		//employeeService.sendEmail(e.getEmailID(),e.getUserID());
+//        		o.put("response", "Email Has been successfully sent");  
+//            } 
+//        	catch (MessagingException me) {
+//                me.printStackTrace();
+//                o.put("response", "Error in sending mail");
+//            }
+		}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    		o.put("response", "Not a valid id");
+    	}
 		return o;
 	}
     
@@ -80,14 +85,11 @@ public class MyController{
 	 * "UTF-8", "html"); javaMailSender.send(msg); }
 	 */
     
-	
-    
-	//
     @GetMapping(value="/confirmmail/{uid}", produces= {APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE})
    	public Object confirmingEmail(@PathVariable("uid") String userId) {
     	long id = Long.parseLong(userId);
     	Register e = employeeService.findById(id);
-    	e.setEmailconfirmationflag(true);
+    	e.setEmailConfirmationFlag(true);
     	Register a = employeeService.save(e);
     	
     	ObjectNode o = mapper.createObjectNode();
