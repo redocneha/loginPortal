@@ -20,7 +20,7 @@ import com.sapient.login.model.User;
 @RestController
 @RequestMapping("/api/authenticate")
 @CrossOrigin(origins = "http://localhost:8014")
-public class AuthenticationController {
+public class LoginController {
 
 	@Autowired
 	RestTemplate restTemplate;

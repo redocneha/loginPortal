@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import com.sapient.login.model.CustomPasswordEncoder;
 
 @Configuration
-public class AuthenticatonConfig {
+public class LoginConfig {
 
 	@Bean
 	public RestTemplate restTemplate() {

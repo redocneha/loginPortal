@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class AuthenticationServiceApplication {
+public class LoginServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationServiceApplication.class, args);
+		SpringApplication.run(LoginServiceApplication.class, args);
 	}
 
 }
