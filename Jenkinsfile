@@ -16,10 +16,10 @@ pipeline {
                 
               //   bat 'mvn -f DataRetrievalService_BackEnd/pom.xml clean install'
                //  bat 'mvn -f LoginService_BackEnd/pom.xml clean install'
-                 bat 'cd LoginService_Frontend && npm install && npm run build'
+              //   bat 'cd LoginService_Frontend && npm install && npm run build'
                 
-                 bat 'mvn -f ChangePasswordService_Backend/pom.xml clean install'
-                 bat 'cd ChangePasswordService_Frontend && npm install && npm run build'
+             //    bat 'mvn -f ChangePasswordService_Backend/pom.xml clean install'
+             //    bat 'cd ChangePasswordService_Frontend && npm install && npm run build'
                 
                  bat 'mvn -f Admin_Backend/pom.xml clean install'
                  bat 'cd Admin_Frontend && npm install && npm run build'
