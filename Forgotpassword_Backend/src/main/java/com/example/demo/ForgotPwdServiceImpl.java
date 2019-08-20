@@ -1,7 +1,11 @@
 package com.example.demo;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 import javax.transaction.Transactional;
 
@@ -38,13 +42,20 @@ public class ForgotPwdServiceImpl implements ForgotPwdService{
 
 	@Override
 	@Transactional
-	public boolean setPassword(String pass, String email) {
+	public boolean setPassword(String pass,String salt, String email) {
 		// TODO Auto-generated method stub
-		System.out.println(email);
-	   if(employeeDAO.setPassword(pass,email)==1)
+		
+	   if(employeeDAO.setPassword(pass,salt,email)==1)
 		   return true;
 	   return false;
 				
+	}
+
+	@Override
+	@Transactional
+	public void changeColumns(String email) {
+		// TODO Auto-generated method stub
+		 employeeDAO.changeColumns(email);
 	}
 
 }

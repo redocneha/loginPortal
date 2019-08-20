@@ -30,7 +30,7 @@ export default class Securityquestions extends React.Component{
                <input type="text" name="ans1" id="ans1" ></input><br/>
                <h6>{this.props.ques2}:  </h6>
                <input type="text" name="ans2" id="ans2" ></input><br/>
-               <input className="btn btn-primary" type="submit" onClick={this.click}></input><br/>
+               <input className="btn btn-primary bbb" type="submit" onClick={this.click}></input><br/>
                {this.state.status==='true'?  <Link to ={`/forgotpassword/Setpassword`} >Setpassword</Link>:this.state.msg}
             </div>
         );

@@ -25,13 +25,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.demo.model.CustomPasswordEncoder;
+import com.example.demo.model.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RestController
 @RequestMapping("/forgotpassword")
 public class MyController {
 	String email;
+	@Autowired
+	private CustomPasswordEncoder cpe;
 	@Autowired
 	private JavaMailSender javaMailSender;
 	@Autowired
@@ -39,7 +45,8 @@ public class MyController {
 	@Autowired
 	private ObjectMapper mapper;
 	String otp;
-	@CrossOrigin(origins= {"http://10.150.223.154:3003","http://localhost:3000"})
+	@CrossOrigin(origins= "*")
+
 	@PostMapping("/uic")
 	
 	public String getValidation( @RequestBody Person p) {
@@ -68,7 +75,7 @@ public class MyController {
 	{
 		return "hi";
 	}
-	@CrossOrigin(origins={"http://localhost:3000","http://10.150.223.154:3003"})
+	@CrossOrigin(origins={"http://localhost:3000","http://10.150.223.154:8010"})
 	@PostMapping("/otp")
 	public String validateOTP( @RequestBody Person p) {
 		ObjectNode jsonObject = mapper.createObjectNode();
@@ -85,7 +92,7 @@ public class MyController {
 	
 
 	
-	@CrossOrigin(origins={"http://localhost:3000","http://10.150.223.154:3003"})
+	@CrossOrigin(origins="*")
 	@PostMapping("/mts")
 	public String  methodToSet( @RequestBody Person p) {
 		
@@ -98,14 +105,13 @@ public class MyController {
 		
 			SimpleMailMessage msg = new SimpleMailMessage();
 			msg.setTo(email);
-			System.out.println(email);
+			
 			msg.setSubject("OTP For Forgot Password");
 			otp = String.valueOf((long) (Math.random() * 9000) + 1000);
 			msg.setText("Your OTP is :" + otp);
-			System.out.println(otp);
+			
 			javaMailSender.send(msg);
-			System.out.println(otp);
-				
+			
 
 		jsonObject.put("otp", otp);
 		  
@@ -119,7 +125,7 @@ public class MyController {
 	  al= al.replace(']', ' ');
 	  String[] q=al.split(",");
 	   jsonObject.put("question1", q[0]);
-	   System.out.println(q[0]);
+	  
 	   jsonObject.put("question2", q[1]);
 	   
 	  
@@ -129,18 +135,18 @@ public class MyController {
 	        
 	}
    String str=jsonObject.toString();
-   System.out.println(str);
+ 
 	return str;
 
 	}
 	
  
 	
-	@CrossOrigin(origins={"http://localhost:3000","http://10.150.223.154:3003"})
+	@CrossOrigin(origins="*")
 	@PostMapping("/sec")
 	public String security( @RequestBody Person p) {
 		
-		System.out.println("hi");
+		
 			ObjectNode jsonObject = mapper.createObjectNode();
 	    if(securityQuestionsCheck(p))
 	    {
@@ -162,12 +168,11 @@ public class MyController {
 	
 	private boolean securityQuestionsCheck(Person p) {
 		// TODO Auto-generated method stub
-		System.out.println("hi");
-		String email=p.getEmail();
-		System.out.println(email);
+	String email=p.getEmail();
+		
 		ArrayList<String> al2=new ArrayList<String>();
 		String al=fgps.findAnswersById(email);
-		   System.out.println(al);
+		 
 		  al= al.replace('[', ' ');
 		  al= al.replace(']', ' ');
 		  String[] q=al.split(",");
@@ -181,22 +186,28 @@ public class MyController {
 		return false;
 	}
 	
-	@CrossOrigin(origins= {"http://localhost:3000","http://10.150.223.154:3003"})
+	@CrossOrigin(origins= "*")
 	@PostMapping("/set")
 	public String setPassword( @RequestBody Person p) {
 		
 		ObjectNode jsonObject = mapper.createObjectNode();
-		System.out.println("hi from set");
+		
 		
 		String pass=p.getPassword();
 		
-		System.out.println(pass);
-		if(fgps.setPassword(pass, email))
+		
+		String salt=BCrypt.gensalt(12);
+		
+		String hashedPassword=cpe.encodeWithSalt(pass, salt);
+		
+		fgps.changeColumns(email);
+	
+		if(fgps.setPassword(hashedPassword,salt,email))
 			jsonObject.put("status", "true");
 		else
 	    	  jsonObject.put("status", "false");
 	    	  String str=jsonObject.toString();
-	    	  System.out.println(str);
+	    	 
 	  		return str;
 	      
 	    }

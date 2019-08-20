@@ -119,13 +119,13 @@ export default class Setpassword extends React.Component{
         
         <pre>    
         Password :          <input type="password" name="password" id="t1"   onChange={this.handleChange} onKeyUp={this.validatePassword} ></input><span id="msg1">  </span><br/><br/>
-        Confirm Password:   <input type="password" name="cpassword" id="t2"   onKeyUp={this.validatePassword} ></input><span id="msg2">  </span><br/>
+        Confirm Password:   <input type="password" name="cpassword" id="t2"   onKeyUp={this.validatePassword} ></input><br/>
        
         <span id="">  </span>
 
         <input type="submit" value="Submit" onClick={this.click}></input> <input type="reset" value="Reset"></input><span id="msg3">  </span>
-  <h6>{this.state.status}</h6>
-  {this.state.status==='true'?<a href="http://10.150.121.200:3000/login">Login</a>:null}
+  <h6></h6>
+  {this.state.status==='true'?<a href="http://localhost:3000/login">Login</a>:null}
         </pre>
        
 
