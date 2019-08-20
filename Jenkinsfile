@@ -9,9 +9,9 @@ pipeline {
                //  bat 'cd Register_Frontend && npm install && npm run build'
                 
                  //bat 'mvn -f UserConfirmation_Backend/pom.xml clean install'
-                  bat 'cd UserConfirmation_Frontend && npm install && npm run build'
+                  //bat 'cd UserConfirmation_Frontend && npm install && npm run build'
                 
-                           //bat 'mvn -f Forgotpassword_Backend/pom.xml clean install'
+                   bat 'mvn -f Forgotpassword_Backend/pom.xml clean install'
                             //bat 'cd forgotpassword_frontend && npm install && npm run build'
                 
              //    bat 'mvn -f DataRetrievalService_BackEnd/pom.xml clean install'
