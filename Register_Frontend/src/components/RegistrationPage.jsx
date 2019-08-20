@@ -157,42 +157,42 @@ class RegistrationPage extends Component {
         <div className="form-group row">
           <label className="col-sm-1 col-form-label" >FirstName</label>
           <div className="col-sm-4">
-            <input type="text" className="form-control" placeholder="FirstName" onChange={this.userDataEventHandler} name="firstName" value={this.state.users.firstName} />
+            <input type="text" className="form-control" placeholder="FirstName" required="true" onChange={this.userDataEventHandler} name="firstName" value={this.state.users.firstName} />
           </div>
         </div>
 
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">LastName</label>
           <div className="col-sm-4">
-            <input type="text" className="form-control" placeholder="LastName" name="lastName" onChange={this.userDataEventHandler} value={this.state.users.lastName} />
+            <input type="text" className="form-control" placeholder="LastName" name="lastName"  required="true" onChange={this.userDataEventHandler} value={this.state.users.lastName} />
           </div>
         </div>
 
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">EmailID</label>
           <div className="col-sm-4">
-            <input type="emailID" className="form-control" placeholder="EmailID" name="emailID" onChange={this.userDataEventHandler} value={this.state.users.emailID} />
+            <input type="emailID" className="form-control" placeholder="EmailID" name="emailID"  required="true" onChange={this.userDataEventHandler} value={this.state.users.emailID} />
           </div>
         </div>
 
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">PhoneNo</label>
           <div className="col-sm-4">
-            <input type="number" className="form-control" placeholder="PhoneNo" name="phoneNo" onChange={this.userDataEventHandler} value={this.state.users.phoneNo} />
+            <input type="number" className="form-control" placeholder="PhoneNo" name="phoneNo"  required="true" onChange={this.userDataEventHandler} value={this.state.users.phoneNo} />
           </div>
         </div>
 
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">Password</label>
           <div className="col-sm-4">
-            <input type="password" className="form-control" placeholder="Password" name="pwd1" onChange={this.PasswordEventHandler} value={this.state.users.passwordHistory.pwd1} />
+            <input type="password" className="form-control" placeholder="Password" name="pwd1"  required="true" onChange={this.PasswordEventHandler} value={this.state.users.passwordHistory.pwd1} />
           </div>
         </div>
 
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">Confirm Password</label>
           <div className="col-sm-4">
-            <input type="text" className="form-control" placeholder="Confirm Password" name="confirmPassword" onChange={this.ConfirmPasswordEventHandler} />
+            <input type="text" className="form-control" placeholder="Confirm Password" name="confirmPassword"  required="true" onChange={this.ConfirmPasswordEventHandler} />
           </div>
         </div>
 
@@ -200,7 +200,7 @@ class RegistrationPage extends Component {
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">Security Question 1</label>
           <div className="col-sm-3">
-            <select className="security" name="securityQueID1" onChange={(e) => this.filterQuestion(e.target.value, 1)}>
+            <select className="security" name="securityQueID1"  required="true" onChange={(e) => this.filterQuestion(e.target.value, 1)}>
               {this.state.securityQuestion1.map(questions =>
                 <option key={questions.questionID} value={questions.questionID}> {questions.question} </option>
               )}
@@ -208,14 +208,14 @@ class RegistrationPage extends Component {
           </div>
 
           <div className="col-sm-4">
-            <input type="text" name="securityAnsID1" value={this.state.users.securityAns.securityAnsID1} onChange={(e) => this.securityAnswers(e.target.value, 1)}></input>
+            <input type="text" name="securityAnsID1"  required="true" value={this.state.users.securityAns.securityAnsID1} onChange={(e) => this.securityAnswers(e.target.value, 1)}></input>
           </div>
         </div>
 
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">Security Question 2</label>
           <div className="col-sm-3">
-            <select className="security" name="securityQueID2" onChange={(e) => this.filterQuestion(e.target.value, 2)}>
+            <select className="security" name="securityQueID2" required="true" onChange={(e) => this.filterQuestion(e.target.value, 2)}>
               {this.state.securityQuestion2.map(questions =>
                 <option key={questions.questionID} value={questions.questionID}>{questions.question}</option>
               )}
@@ -223,7 +223,7 @@ class RegistrationPage extends Component {
           </div>
 
           <div className="col-sm-4">
-            <input type="text" name="securityAnsID2" value={this.state.users.securityAns.securityAnsID2} onChange={(e) => this.securityAnswers(e.target.value, 2)}></input>
+            <input type="text" name="securityAnsID2"  required="true" value={this.state.users.securityAns.securityAnsID2} onChange={(e) => this.securityAnswers(e.target.value, 2)}></input>
           </div>
         </div>
 
