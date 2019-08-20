@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.model;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Persons")
+
 public class Person implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;

@@ -33,7 +33,7 @@ export default class OTPtoMail extends React.Component{
                 <h2>Please enter OTP</h2>
                 
                <input type="password" id="otp" name="otp" onChange={this.handleChange}></input><br></br>
-               <input className="btn btn-primary" type="submit" onClick={this.click}></input><br/>
+               <input className="btn btn-primary bbb" type="submit" onClick={this.click}></input><br/>
                {this.state.status==='true'?  <Link to ={Setpassword} >SetPassword </Link>:null}
 
             </div>
