@@ -20,7 +20,7 @@ export default class OTPtoMail extends React.Component{
         }
         console.log(data);
         //Axios.post("http://10.150.176.132:8076/forgotpassword/otp",data).then(res => console.log(res));
-        Axios.post("http://10.150.176.126:8009/forgotpassword/otp",data).then(res => this.setState({status:res.data.status}));
+        Axios.post("http://localhost:8009/forgotpassword/otp",data).then(res => this.setState({status:res.data.status}));
         //Axios.post("http://192.168.43.237:8076/forgotpassword/otp",data).then(res => this.setState({status:res.data.status}));
     
     }
