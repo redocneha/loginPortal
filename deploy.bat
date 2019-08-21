@@ -1,4 +1,4 @@
- python -m http.server 8006
+ bat 'python -m http.server 8006'
  REM start java -jar Register_Backend/target/Register_Backend.jar
  REM start java -jar UserConfirmation_Backend/target/UserConfirmation_Backend.jar
  REM cd ../../UserConfirmation_Frontend/build && start python -m http.server 8002
