@@ -1,6 +1,6 @@
- start java -jar Register_Backend/target/Register_Backend.jar
- cd Register_Frontend/build && start python -m http.server 8006
- start java -jar UserConfirmation_Backend/target/UserConfirmation_Backend.jar
+ REM start java -jar Register_Backend/target/Register_Backend.jar
+ start python -m http.server 8006
+ REM start java -jar UserConfirmation_Backend/target/UserConfirmation_Backend.jar
  REM cd ../../UserConfirmation_Frontend/build && start python -m http.server 8002
  REM start java -jar Forgotpassword_Backend/target/Forgotpassword_Backend.jar
  REM cd ../../forgotpassword_frontend/build && start python -m http.server 8010
