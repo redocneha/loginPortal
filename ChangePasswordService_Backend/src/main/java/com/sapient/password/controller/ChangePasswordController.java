@@ -20,7 +20,7 @@ import com.sapient.password.model.User;
 
 @RestController
 @RequestMapping("/api/change")
-@CrossOrigin(origins = "http://localhost:8016")
+@CrossOrigin(origins = "http://10.150.120.183.:8016")
 public class ChangePasswordController {
 
 	@Autowired
@@ -33,14 +33,15 @@ public class ChangePasswordController {
 	public String changePassword(@RequestBody User currentUser) {
 		System.out.println("user in changePassword: " + currentUser);
 		String url = "http://localhost:8017/api/data/user";
-		User user = new User(currentUser.getUserID(), null, null, null);
+		User user = new User(currentUser.getUserID(), null, null);
 		HttpEntity<User> httpEntity = new HttpEntity<User>(user);
 		ResponseEntity<Optional<User>> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
 				new ParameterizedTypeReference<Optional<User>>() {
 				});
 		Optional<User> optional = response.getBody();
 		// System.out.println("H1"+optional.get());
-		String status = changePasswordOfUser(optional, currentUser.getOldpwd(), currentUser.gethashedpwd());
+		String status = changePasswordOfUser(optional, currentUser.getPasswordHistory().getOldpwd(),
+				currentUser.getPasswordHistory().getPwd1());
 		return status;
 	}
 
@@ -48,8 +49,8 @@ public class ChangePasswordController {
 		if (optional.isPresent()) {
 			User user = optional.get();
 			System.out.println("user in response from api: " + user);
-			String storedhashedPassword = user.gethashedpwd();
-			String storedSalt = user.getSalt();
+			String storedhashedPassword = user.getPasswordHistory().getPwd1();
+			String storedSalt = user.getPasswordHistory().getSalt1();
 			System.out.println("old pwd: " + oldPassword);
 			System.out.println("new pwd: " + newPassword);
 			System.out.println("stored salt: " + storedSalt);
@@ -60,8 +61,8 @@ public class ChangePasswordController {
 				String newSalt = BCrypt.gensalt(12);
 				String hashOfNewPassword = customPasswordEncoder.encodeWithSalt(newPassword, newSalt);
 				System.out.println("new hashed pwd: " + hashOfNewPassword);
-				user.sethashedPwd(hashOfNewPassword);
-				user.setSalt(newSalt);
+				user.getPasswordHistory().setPwd1(hashOfNewPassword);
+				user.getPasswordHistory().setSalt1(newSalt);
 				System.out.println("H2" + user);
 				String url = "http://localhost:8017/api/data/update";
 				HttpEntity<User> httpEntity = new HttpEntity<User>(user);

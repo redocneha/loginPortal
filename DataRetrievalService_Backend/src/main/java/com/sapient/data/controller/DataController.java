@@ -2,6 +2,7 @@ package com.sapient.data.controller;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,5 +29,10 @@ public class DataController {
 	@PostMapping("/update")
 	public int update(@RequestBody User user) {
 		return dataService.changePassword(user);
+	}
+	
+	@PostMapping("/checkflag")
+	public boolean checkEmailFlag(@RequestBody User user) {
+		return dataService.checkEmailFlag(user);
 	}
 }

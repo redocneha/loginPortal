@@ -9,8 +9,13 @@ class Welcome extends Component {
     constructor(){
       super();
       this.state={}
+      this.routeChange = this.routeChange.bind(this);
     
-    
+}
+
+routeChange() {
+  let path = `/http://10.150.120.160:8016`;
+  this.props.history.push(path);
 }
 
 
@@ -22,11 +27,11 @@ render()
     <form className="welcome-page" >
         
     <h1 className="Text-center">Welcome Page</h1>
-    <h2 className="Text-center">Welcome User</h2>
+    
    
-      <button>Update Profile</button>
-      <button> Profile</button>
-
+      <button  onClick={this.routeChange}>Update Profile</button>
+      <a href='http://10.150.120.160:8016' >Change Password</a>
+          
     </form>
 
   )

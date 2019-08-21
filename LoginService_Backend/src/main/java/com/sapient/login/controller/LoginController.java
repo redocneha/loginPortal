@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.sapient.login.model.CustomPasswordEncoder;
+import com.sapient.login.model.LoginStatus;
 import com.sapient.login.model.User;
 
 @RestController
@@ -29,33 +30,47 @@ public class LoginController {
 	CustomPasswordEncoder cpencoder;
 
 	@PostMapping
-	public String authenticate(@RequestBody User loginUser) {
+	public LoginStatus authenticate(@RequestBody User loginUser) {
 		String url = "http://localhost:8017/api/data/user";
-		System.out.println(loginUser);
+		System.out.println(loginUser.getPasswordHistory());
 		HttpEntity<User> httpEntity = new HttpEntity<User>(loginUser);
 		ResponseEntity<Optional<User>> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
 				new ParameterizedTypeReference<Optional<User>>() {
 				});
 		Optional<User> optional = response.getBody();
-		String status = authenticateUser(optional, loginUser);
-		return status;
+		return authenticateUser(optional, loginUser);
 	}
 
-	private String authenticateUser(Optional<User> optional, User loginUser) {
+	private LoginStatus authenticateUser(Optional<User> optional, User loginUser) {
 
+		LoginStatus loginStatus = new LoginStatus();
 		if (optional.isPresent()) {
 			User user = optional.get();
-			String storedhashedPwd = user.gethashedpwd();
-			String storedSalt = user.getSalt();
-			String hashedPwd = cpencoder.encodeWithSalt(loginUser.gethashedpwd(), storedSalt);
+			String storedhashedPwd = user.getPasswordHistory().getPwd1();
+			String storedSalt = user.getPasswordHistory().getSalt1();
+			String hashedPwd = cpencoder.encodeWithSalt(loginUser.getPasswordHistory().getPwd1(), storedSalt);
 			System.out.println(hashedPwd);
 			if (hashedPwd.equals(storedhashedPwd)) {
-				return "Authenticated";
+				String url = "http://localhost:8017/api/data/checkflag";
+				HttpEntity<User> httpEntity = new HttpEntity<User>(user);
+				ResponseEntity<Boolean> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
+						new ParameterizedTypeReference<Boolean>() {
+						});
+				if (response.getBody()) {
+					loginStatus.setMessage("Authenticated");
+					loginStatus.setUserID(user.getUserID());
+				} else {
+					loginStatus.setMessage("Not a confirmed user");
+					loginStatus.setUserID(user.getUserID());
+				}
 			} else {
-				return "Incorrect Password";
+				loginStatus.setMessage("Incorrect Password");
+				loginStatus.setUserID(user.getUserID());
 			}
+		} else {
+			loginStatus.setMessage("User doesnot exists");
 		}
-		return "User doesnot exist";
+		return loginStatus;
 	}
 
 }

@@ -12,8 +12,8 @@
 	<groupId>com.sapient</groupId>
 	<artifactId>LoginService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>LoginService</name>
-	<description>Authenticate user</description>
+	<name>LoginService_Backend</name>
+	<description>Authenticates user</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -44,7 +44,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>LoginService_BackEnd</finalName>
+		<finalName>LoginService_Backend</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
