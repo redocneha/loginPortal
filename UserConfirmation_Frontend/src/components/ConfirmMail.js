@@ -13,7 +13,7 @@ export default class ConfirmMail extends React.Component {
     componentDidMount(){
         console.log('In Component');
         console.log(this.props);
-        axios.get('http://localhost:8765/api/v1/confirmmail/' + this.props.match.params.uid)
+        axios.get('http://localhost:8881/api/v1/confirmmail/' + this.props.match.params.uid)
         .then(response => {console.log(response.data.response);  this.setState({res : response.data.response})});
     }
 
