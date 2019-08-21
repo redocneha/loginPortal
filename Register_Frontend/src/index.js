@@ -5,6 +5,8 @@ import {Router, Route} from 'react-router-dom';
 import history from './history';
 import RegistrationPage from './components/RegistrationPage';
 import Home from './components/Home';
+import Error from './components/Error';
+
 
 
 const router = (
@@ -13,6 +15,7 @@ const router = (
             <Route exact path="/" component={App} /> <br />
             <Route exact path="/register" component={RegistrationPage} /> <br />
             <Route exact path="/home" component={Home} /> <br />
+            <Route exact path="/error" component={Error} /> <br />
         </ul>
     </Router>
 )
