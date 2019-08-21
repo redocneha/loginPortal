@@ -109,7 +109,7 @@ export default class Setpassword extends React.Component{
             password:this.state.value,
             email:this.props.email
         }
-        Axios.post("http://10.150.176.126:8009/forgotpassword/set",data).then(res => this.setState({status:res.data.status}));
+        Axios.post("http://localhost:8009/forgotpassword/set",data).then(res => this.setState({status:res.data.status}));
         //Axios.post("http://192.168.43.237:8076/forgotpassword/set",data).then(res => this.setState({status:res.data.status}));
         
       }
@@ -125,7 +125,7 @@ export default class Setpassword extends React.Component{
 
         <input type="submit" value="Submit" onClick={this.click}></input> <input type="reset" value="Reset"></input><span id="msg3">  </span>
   <h6></h6>
-  {this.state.status==='true'?<a href="http://localhost:3000/login">Login</a>:null}
+  {this.state.status==='true'?<a href="http://localhost:8014/login">Login</a>:null}
         </pre>
        
 

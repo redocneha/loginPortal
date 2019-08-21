@@ -19,7 +19,7 @@ export default class Securityquestions extends React.Component{
         }
         console.log(data);
         //Axios.post("http://10.150.176.200:8076/forgotpassword/sec",data).then(res => console.log(res));
-        Axios.post("http://10.150.176.126:8009/forgotpassword/sec",data).then(res => this.setState({status:res.data.status,msg:'please enter correct answers'}));
+        Axios.post("http://localhost:8009/forgotpassword/sec",data).then(res => this.setState({status:res.data.status,msg:'please enter correct answers'}));
        //Axios.post("http://192.168.43.237:8076/forgotpassword/sec",data).then(res => this.setState({status:res.data.status,msg:'please enter correct answers'}));
       }
     render(){
