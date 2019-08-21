@@ -8,13 +8,13 @@ export default class EditProfile extends Component {
         
         this.state={
                 user:{
-                  id: '',
-                  fname:'',
-                  lname:'',
-                  role:'',
-                  email: '' ,
-                  phone: '',
-                  address:''
+                  userid: '',
+                  first_name:'',
+                  last_name:'',
+                 // user_role:'',
+                  emailid: '' ,
+                  phone_no: '',
+                 // address:''
                 },       
                 disabled:true
         }
@@ -30,7 +30,7 @@ export default class EditProfile extends Component {
     }
 
     componentDidMount(){
-      let data={
+     /* let data={
             fname:'demo',
             lname:'user',
             email:'demo@demo.demo',
@@ -38,15 +38,15 @@ export default class EditProfile extends Component {
         }
         this.setState({
             user: data
-        })
-    	/*axios.get('http://localhost:8091/10')
+        })*/
+    	axios.get('http://localhost:8018/4')
 	      .then(res => {
 	        const data = res.data;
 	        console.log(data);
 	        this.setState({
 	        	user: data
 	        })
-	      })*/
+	      })
     }
 
     submitHandler = event =>{
@@ -57,14 +57,14 @@ export default class EditProfile extends Component {
    updateFields(e,field){
     let data=this.state.user;
     console.log(data);
-    if(field==="fname"){
-        data.fname=e.target.value;
+    if(field==="first_name"){
+        data.first_name=e.target.value;
     }
-    else if( field==="lname"){
-        data.lname=e.target.value;
+    else if( field==="last_name"){
+        data.last_name=e.target.value;
     }
-    else if(field==="phone"){
-        data.phone=e.target.value;
+    else if(field==="phone_no"){
+        data.phone_no=e.target.value;
     }
     this.setState({user:data});
 
@@ -74,23 +74,23 @@ export default class EditProfile extends Component {
    // e.preventDefault();
    console.log(this.state.user);
     const user1 = {
-          id:10,
-          fname:this.state.user.fname,
-          lname:this.state.user.lname,
-          role:'user',
-          email: this.state.user.email ,
-          phone: this.state.user.phone,
-          address:'dsad'
+          userid:4,
+          first_name:this.state.user.first_name,
+          last_name:this.state.user.last_name,
+         // user_role:'user',
+          emailid: this.state.user.emailid ,
+          phone_no: this.state.user.phone_no,
+         // address:'dsad'
     }
-    console.log(this.state.user.fname);
-    /*axios.post('http://localhost:8091/updateUser', user1)
-    .then(res => console.log(res.data));*/
-   // $('#myModal').hide();
+    console.log(this.state.user.first_name);
+    axios.post('http://localhost:8018/updateUser', user1)
+    .then(res => console.log(res.data));/*
+   $('#myModal').hide();
    // $('#myModal').modal('toggle');
-    this.mask();
+   */ this.mask();
     alert('Profile Updated Successfully');
     // console.log(this.state.log);
-    // axios.post('http://localhost:8091/updateUser', 
+    // axios.post('http://localhost:8018/updateUser', 
     //     { id:2,
     //       email: this.state.email ,
     //       fname:this.state.fname,
@@ -102,7 +102,7 @@ export default class EditProfile extends Component {
    }
 
    pingForOtp(){
-    //axios.post('http://localhost:8091/sendOtp', { email: this.state.user.email });
+   // axios.post('http://localhost:8091/sendOtp', { emailid: this.state.user.emailid });
    }
 
     render(){
@@ -110,19 +110,19 @@ export default class EditProfile extends Component {
             <div>
               <form onSubmit={this.submitHandler}>
                       First name:<br/>
-                  <input type="text" name="firstname" value={this.state.user.fname} disabled={this.state.disabled} 
-                  onChange={(e)=> this.updateFields(e,"fname")} />
+                  <input type="text" name="first_name" value={this.state.user.first_name} disabled={this.state.disabled} 
+                  onChange={(e)=> this.updateFields(e,"first_name")} />
                   <br/>
                       Last name:<br/>
-                  <input type="text" name="lastname" value={this.state.user.lname} disabled={this.state.disabled} 
-                  onChange={(e)=> this.updateFields(e,"lname")}/>
+                  <input type="text" name="last_name" value={this.state.user.last_name} disabled={this.state.disabled} 
+                  onChange={(e)=> this.updateFields(e,"last_name")}/>
                   <br/>
                   Email:<br/>
-                  <input type="text" name="email" value={this.state.user.email} disabled/>
+                  <input type="text" name="emailid" value={this.state.user.emailid} disabled/>
                   <br/>
                   Phone Number:<br/>
-                  <input type="text" name="phonenumber" value={this.state.user.phone} disabled={this.state.disabled}
-                  onChange={(e)=> this.updateFields(e,"phone")}/>
+                  <input type="text" name="phone_no" value={this.state.user.phone_no} disabled={this.state.disabled}
+                  onChange={(e)=> this.updateFields(e,"phone_no")}/>
                   <br/>
                       <br/><br/>
                   <button onClick={()=>this.mask()}>EDIT!</button>

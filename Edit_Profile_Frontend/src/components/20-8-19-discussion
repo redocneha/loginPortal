@@ -1,0 +1,15 @@
+define log format
+
+warningss errors exceptions 
+
+get a list of all errors or exceptions possible
+
+front end errors and exceprion handling
+
+operationname_outcome_action
+
+TODO
+1)status
+2)notify ops team
+3)move logs to kibana
+4) react microservice for logging
