@@ -1,4 +1,4 @@
-//package com.sapient.password;
+//package com.sapient;
 //
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@
 //
 //@RunWith(SpringRunner.class)
 //@SpringBootTest
-//public class ChangePasswordServiceApplicationTests {
+//public class DataRetrievalServiceApplicationTests {
 //
 //	@Test
 //	public void contextLoads() {

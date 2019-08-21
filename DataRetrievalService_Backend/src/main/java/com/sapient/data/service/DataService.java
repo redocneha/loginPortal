@@ -29,10 +29,10 @@ public class DataService {
 
 	@Transactional
 	public int changePassword(User user) {
-		if (user.getEmailID() == null) {
-			return dataDao.updateByUserID(user.getUserID(), user.gethashedpwd(), user.getSalt());
-		} else {
-			return dataDao.updateByEmailID(user.getEmailID(), user.gethashedpwd(), user.getSalt());
-		}
+		return dataDao.updatePassword(user.getPasswordHistory().getPassId(), user.getPasswordHistory().getPwd1(), user.getPasswordHistory().getSalt1());
+	}
+
+	public boolean checkEmailFlag(User user) {
+		return dataDao.getEmailFlag(user.getUserID());
 	}
 }
