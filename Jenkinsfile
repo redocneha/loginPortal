@@ -3,7 +3,6 @@ pipeline {
     agent any
     
     stages {
-        /*
          stage ('Compile Stage') {
             steps {
                 bat 'mvn -f Register_Backend/pom.xml clean install'
@@ -29,7 +28,6 @@ pipeline {
                 bat 'cd Edit_Profile_Frontend && npm install && npm run build'
             }
          }
-         */
          stage ('Deploy Stage') {
             steps {
                 bat 'deploy.bat'
