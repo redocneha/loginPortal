@@ -3,10 +3,11 @@ pipeline {
     agent any
     
     stages {
-        /*
+        
          stage ('Compile Stage') {
             steps {
-                bat 'mvn -f Register_Backend/pom.xml clean install'
+                bat 'mvn -f Register_Backend/pom.xml clean package checkstyle:checkstyle findbugs:findbugs pmd:pmd'
+                /*
                 bat 'cd Register_Frontend && npm install && npm run build'
                 
                 bat 'mvn -f UserConfirmation_Backend/pom.xml clean install'
@@ -27,13 +28,18 @@ pipeline {
                 
                 bat 'mvn -f Edit_Profile_Backend/pom.xml clean install'
                 bat 'cd Edit_Profile_Frontend && npm install && npm run build'
+                */
             }
          }
-         */
-         stage ('Deploy Stage') {
+         
+         step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100'])
+         step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
+         step([$class: 'FindBugsPublisher', pattern: '**/findbugsXml.xml'])
+        /* stage ('Deploy Stage') {
             steps {
                 bat 'deploy.bat'
             }
          }
+         */
     }
 }
