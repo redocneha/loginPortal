@@ -31,10 +31,18 @@ node {
                 */
             }
          }
+        stage ('Code Review'){
+            steps {
+                script {
+                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100'])
+                step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
+                step([$class: 'FindBugsPublisher', pattern: '**/findbugsXml.xml'])
+                }
+            }
+        
+        }
          
-         step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100'])
-         step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
-         step([$class: 'FindBugsPublisher', pattern: '**/findbugsXml.xml'])
+         
         /* stage ('Deploy Stage') {
             steps {
                 bat 'deploy.bat'
