@@ -7,7 +7,7 @@ pipeline {
              steps {
                  
                 bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd sonar:sonar'
-                bat 'cd Register_Frontend && npm install && npm run build'
+             /*   bat 'cd Register_Frontend && npm install && npm run build'
                 
                 bat 'mvn -f UserConfirmation_Backend/pom.xml clean install pmd:pmd sonar:sonar'
                 bat 'cd UserConfirmation_Frontend && npm install && npm run build'
@@ -38,6 +38,7 @@ pipeline {
             }
         
         }
+    */
          
          
         /* stage ('Deploy Stage') {
