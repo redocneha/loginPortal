@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ import java.util.NoSuchElementException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-@CrossOrigin(origins="http://localhost:8882")
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/v1")
 public class MyController{
@@ -42,17 +43,18 @@ public class MyController{
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@GetMapping(value="/sendmail/{uid}")
-	public Object sendingEmail(@PathVariable("uid") String userid) {
-		long id = Long.parseLong(userid);
+	@PostMapping(value="/sendmail/")
+	public Object sendingEmail(@RequestBody Register user) {
+		//long id = Long.parseLong(userid);
 		//System.out.println(userid);
 		
 		ObjectNode o = mapper.createObjectNode();
 		
 		
 		try {
-			Register e = employeeService.findById(id);
+			Register e = employeeService.findByEmailId(user.getEmailID());
 			//o.put("response", "Email Has been successfully sent"); 
+			System.out.println(user.getEmailID());
 			if(e.isEmailConfirmationFlag() == true) {
 				o.put("response", "User already verified");
 			}
