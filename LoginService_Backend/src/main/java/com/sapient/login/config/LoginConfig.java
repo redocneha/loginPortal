@@ -13,7 +13,7 @@ public class LoginConfig {
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-	
+
 	@Bean
 	public CustomPasswordEncoder customPasswordEncoder() {
 		return new CustomPasswordEncoder();

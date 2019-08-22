@@ -2,13 +2,24 @@ package com.sapient.login.model;
 
 public class Password {
 
-	private long passId;
-	private String pwd1;// Current password
-	private String salt1;
+	private Long passId;
+	private String pwd1; // current password
+	private String salt1; // current salt
 	private String pwd2;
 	private String salt2;
 	private String pwd3;
 	private String salt3;
+
+	public Password() {
+		super();
+	}
+
+	public Password(Long passId, String pwd1, String salt1) {
+		super();
+		this.passId = passId;
+		this.pwd1 = pwd1;
+		this.salt1 = salt1;
+	}
 
 	public String getPwd1() {
 		return pwd1;
@@ -18,11 +29,11 @@ public class Password {
 		this.pwd1 = pwd1;
 	}
 
-	public long getPassId() {
+	public Long getPassId() {
 		return passId;
 	}
 
-	public void setPassId(long passId) {
+	public void setPassId(Long passId) {
 		this.passId = passId;
 	}
 
@@ -71,4 +82,36 @@ public class Password {
 		return "Password [passId=" + passId + ", pwd1=" + pwd1 + ", salt1=" + salt1 + ", pwd2=" + pwd2 + ", salt2="
 				+ salt2 + ", pwd3=" + pwd3 + ", salt3=" + salt3 + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((passId == null) ? 0 : passId.hashCode());
+		result = prime * result + ((pwd1 == null) ? 0 : pwd1.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Password other = (Password) obj;
+		if (passId == null) {
+			if (other.passId != null)
+				return false;
+		} else if (!passId.equals(other.passId))
+			return false;
+		if (pwd1 == null) {
+			if (other.pwd1 != null)
+				return false;
+		} else if (!pwd1.equals(other.pwd1))
+			return false;
+		return true;
+	}
+
 }

@@ -16,23 +16,29 @@ public class DataService {
 	@Autowired
 	DataDao dataDao;
 
-	public Optional<User> getUserForAuthentication(User loginUser) {
-
-		Optional<User> optional;
-		if (loginUser.getEmailID() == null) {
-			optional = dataDao.findByUserID(loginUser.getUserID());
+	@Transactional
+	public Optional<User> getUser(User loginUser) {
+		
+		if (loginUser.getUserID() != null) {
+			return dataDao.findUserByUserID(loginUser.getUserID());
 		} else {
-			optional = dataDao.findByEmailID(loginUser.getEmailID());
+			return dataDao.findUserByEmailID(loginUser.getEmailID());
 		}
-		return optional;
 	}
 
 	@Transactional
 	public int changePassword(User user) {
-		return dataDao.updatePassword(user.getPasswordHistory().getPassId(), user.getPasswordHistory().getPwd1(), user.getPasswordHistory().getSalt1());
+		return dataDao.updatePassword(user.getPassword().getPassId(), user.getPassword().getPwd1(),
+				user.getPassword().getSalt1());
 	}
 
-	public boolean checkEmailFlag(User user) {
-		return dataDao.getEmailFlag(user.getUserID());
+	@Transactional
+	public boolean checkEmailConfFlag(User user) {
+		return dataDao.getEmailConfFlag(user.getUserID());
+	}
+
+	@Transactional
+	public User createUser(User user) {
+		return dataDao.save(user);
 	}
 }

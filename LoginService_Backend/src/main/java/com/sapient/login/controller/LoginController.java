@@ -20,20 +20,29 @@ import com.sapient.login.model.User;
 
 @RestController
 @RequestMapping("/api/authenticate")
-@CrossOrigin(origins = "http://localhost:8014")
+@CrossOrigin(origins = "*")
 public class LoginController {
 
 	@Autowired
 	RestTemplate restTemplate;
 
 	@Autowired
-	CustomPasswordEncoder cpencoder;
+	CustomPasswordEncoder customPasswordEncoder;
 
 	@PostMapping
 	public LoginStatus authenticate(@RequestBody User loginUser) {
 		String url = "http://localhost:8017/api/data/user";
-		System.out.println(loginUser.getPasswordHistory());
-		HttpEntity<User> httpEntity = new HttpEntity<User>(loginUser);
+
+		User user = new User();
+
+		if (loginUser != null) {
+			if (loginUser.getUserID() != null)
+				user.setUserID(loginUser.getUserID());
+			else
+				user.setEmailID(loginUser.getEmailID());
+		}
+
+		HttpEntity<User> httpEntity = new HttpEntity<User>(user);
 		ResponseEntity<Optional<User>> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
 				new ParameterizedTypeReference<Optional<User>>() {
 				});
@@ -42,34 +51,35 @@ public class LoginController {
 	}
 
 	private LoginStatus authenticateUser(Optional<User> optional, User loginUser) {
-
 		LoginStatus loginStatus = new LoginStatus();
+
 		if (optional.isPresent()) {
 			User user = optional.get();
-			String storedhashedPwd = user.getPasswordHistory().getPwd1();
-			String storedSalt = user.getPasswordHistory().getSalt1();
-			String hashedPwd = cpencoder.encodeWithSalt(loginUser.getPasswordHistory().getPwd1(), storedSalt);
-			System.out.println(hashedPwd);
-			if (hashedPwd.equals(storedhashedPwd)) {
+			String storedHashedPassword = user.getPassword().getPwd1();
+			String storedSalt = user.getPassword().getSalt1();
+			String inputHashedPassword = customPasswordEncoder.encodeWithSalt(loginUser.getPassword().getPwd1(), storedSalt);
+			
+			if (inputHashedPassword.equals(storedHashedPassword)) {
 				String url = "http://localhost:8017/api/data/checkflag";
 				HttpEntity<User> httpEntity = new HttpEntity<User>(user);
 				ResponseEntity<Boolean> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
 						new ParameterizedTypeReference<Boolean>() {
 						});
 				if (response.getBody()) {
-					loginStatus.setMessage("Authenticated");
+					loginStatus.setLoginStatusMessage("Authenticated");
 					loginStatus.setUserID(user.getUserID());
 				} else {
-					loginStatus.setMessage("Not a confirmed user");
+					loginStatus.setLoginStatusMessage("Not a confirmed user");
 					loginStatus.setUserID(user.getUserID());
 				}
 			} else {
-				loginStatus.setMessage("Incorrect Password");
+				loginStatus.setLoginStatusMessage("Incorrect password");
 				loginStatus.setUserID(user.getUserID());
 			}
 		} else {
-			loginStatus.setMessage("User doesnot exists");
+			loginStatus.setLoginStatusMessage("User doesn't exist");
 		}
+
 		return loginStatus;
 	}
 
