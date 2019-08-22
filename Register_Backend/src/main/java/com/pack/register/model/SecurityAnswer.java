@@ -12,6 +12,44 @@ import javax.persistence.Table;
 @Table(name="securityAns")
 public class SecurityAnswer implements Serializable {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (secId ^ (secId >>> 32));
+		result = prime * result + ((securityAnsID1 == null) ? 0 : securityAnsID1.hashCode());
+		result = prime * result + ((securityAnsID2 == null) ? 0 : securityAnsID2.hashCode());
+		result = prime * result + (int) (securityQueID1 ^ (securityQueID1 >>> 32));
+		result = prime * result + (int) (securityQueID2 ^ (securityQueID2 >>> 32));
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SecurityAnswer other = (SecurityAnswer) obj;
+		if (secId != other.secId)
+			return false;
+		if (securityAnsID1 == null) {
+			if (other.securityAnsID1 != null)
+				return false;
+		} else if (!securityAnsID1.equals(other.securityAnsID1))
+			return false;
+		if (securityAnsID2 == null) {
+			if (other.securityAnsID2 != null)
+				return false;
+		} else if (!securityAnsID2.equals(other.securityAnsID2))
+			return false;
+		if (securityQueID1 != other.securityQueID1)
+			return false;
+		if (securityQueID2 != other.securityQueID2)
+			return false;
+		return true;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long secId;

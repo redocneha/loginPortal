@@ -49,13 +49,20 @@ public class Mycontroller {
 		
 		System.out.println("inside Save .....");
 		System.out.println(user);
-		
+		User temp = userService.saveUser(user);
 		try {
-			userService.saveUser(user);
+			
+			if(temp!=null) {
 			objectNode.put("status", 200);
 			objectNode.put("message", "Success");
+			}
+			else {
+				objectNode.put("status", 301);
+				objectNode.put("message", "DbError");
+			}
 	    }
 	    catch (DataIntegrityViolationException e) {
+	    	
 	        System.out.println("history already exist");
 	        objectNode.put("status", 400);
 			objectNode.put("message", "User Already Exists");
