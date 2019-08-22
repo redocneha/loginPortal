@@ -8,12 +8,12 @@ import com.sapient.password.model.CustomPasswordEncoder;
 
 @Configuration
 public class ChangePasswordConfig {
-	
+
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-	
+
 	@Bean
 	public CustomPasswordEncoder customPasswordEncoder() {
 		return new CustomPasswordEncoder();

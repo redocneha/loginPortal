@@ -2,36 +2,23 @@ package com.sapient.password.model;
 
 public class Password {
 
-	private long passId;
-	private String oldpwd;
-	private String pwd1;// Current password
-	private String salt1;
-	private String pwd2;
+	private Long passId;
+	private String pwd1; // old password
+	private String salt1; // current salt
+	private String pwd2; // new password
 	private String salt2;
 	private String pwd3;
 	private String salt3;
 
-	
-	public Password(String pwd1, String salt1) {
+	public Password() {
 		super();
+	}
+
+	public Password(Long passId, String pwd1, String salt1) {
+		super();
+		this.passId = passId;
 		this.pwd1 = pwd1;
 		this.salt1 = salt1;
-	}
-
-	public long getPassId() {
-		return passId;
-	}
-
-	public void setPassId(long passId) {
-		this.passId = passId;
-	}
-
-	public String getOldpwd() {
-		return oldpwd;
-	}
-
-	public void setOldpwd(String oldpwd) {
-		this.oldpwd = oldpwd;
 	}
 
 	public String getPwd1() {
@@ -42,8 +29,16 @@ public class Password {
 		this.pwd1 = pwd1;
 	}
 
+	public Long getPassId() {
+		return passId;
+	}
+
+	public void setPassId(Long passId) {
+		this.passId = passId;
+	}
+
 	public String getSalt1() {
-		return salt1;
+		return this.salt1;
 	}
 
 	public void setSalt1(String salt1) {
@@ -51,7 +46,7 @@ public class Password {
 	}
 
 	public String getPwd2() {
-		return pwd2;
+		return this.pwd2;
 	}
 
 	public void setPwd2(String pwd2) {
@@ -59,7 +54,7 @@ public class Password {
 	}
 
 	public String getSalt2() {
-		return salt2;
+		return this.salt2;
 	}
 
 	public void setSalt2(String salt2) {
@@ -67,23 +62,56 @@ public class Password {
 	}
 
 	public String getPwd3() {
-		return pwd3;
+		return this.pwd3;
 	}
 
 	public void setPwd3(String pwd3) {
 		this.pwd3 = pwd3;
 	}
 
-	public Password() {
-		super();
-	}
-
 	public String getSalt3() {
-		return salt3;
+		return this.salt3;
 	}
 
 	public void setSalt3(String salt3) {
 		this.salt3 = salt3;
+	}
+
+	@Override
+	public String toString() {
+		return "Password [passId=" + passId + ", pwd1=" + pwd1 + ", salt1=" + salt1 + ", pwd2=" + pwd2 + ", salt2="
+				+ salt2 + ", pwd3=" + pwd3 + ", salt3=" + salt3 + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((passId == null) ? 0 : passId.hashCode());
+		result = prime * result + ((pwd1 == null) ? 0 : pwd1.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Password other = (Password) obj;
+		if (passId == null) {
+			if (other.passId != null)
+				return false;
+		} else if (!passId.equals(other.passId))
+			return false;
+		if (pwd1 == null) {
+			if (other.pwd1 != null)
+				return false;
+		} else if (!pwd1.equals(other.pwd1))
+			return false;
+		return true;
 	}
 
 }

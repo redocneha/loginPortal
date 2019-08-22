@@ -1,34 +1,25 @@
 package com.sapient.data.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "PasswordHistory")
 public class Password {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long passId;
-
-	@Column(name = "password1")
-	private String pwd1;// Current password
-	@Column(name = "salt1")
-	private String salt1;
-
-	@Column(name = "password2")
+	private Long passId;
+	private String pwd1; // current password
+	private String salt1; // current salt
 	private String pwd2;
-	@Column(name = "salt2")
 	private String salt2;
-
-	@Column(name = "password3")
 	private String pwd3;
-	@Column(name = "salt3")
 	private String salt3;
+
+	public Password() {
+		super();
+	}
+
+	public Password(Long passId, String pwd1, String salt1) {
+		super();
+		this.passId = passId;
+		this.pwd1 = pwd1;
+		this.salt1 = salt1;
+	}
 
 	public String getPwd1() {
 		return pwd1;
@@ -38,11 +29,11 @@ public class Password {
 		this.pwd1 = pwd1;
 	}
 
-	public long getPassId() {
+	public Long getPassId() {
 		return passId;
 	}
 
-	public void setPassId(long passId) {
+	public void setPassId(Long passId) {
 		this.passId = passId;
 	}
 
@@ -85,4 +76,48 @@ public class Password {
 	public void setSalt3(String salt3) {
 		this.salt3 = salt3;
 	}
+
+	@Override
+	public String toString() {
+		return "Password [passId=" + passId + ", pwd1=" + pwd1 + ", salt1=" + salt1 + ", pwd2=" + pwd2 + ", salt2="
+				+ salt2 + ", pwd3=" + pwd3 + ", salt3=" + salt3 + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((passId == null) ? 0 : passId.hashCode());
+		result = prime * result + ((pwd1 == null) ? 0 : pwd1.hashCode());
+		result = prime * result + ((salt1 == null) ? 0 : salt1.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Password other = (Password) obj;
+		if (passId == null) {
+			if (other.passId != null)
+				return false;
+		} else if (!passId.equals(other.passId))
+			return false;
+		if (pwd1 == null) {
+			if (other.pwd1 != null)
+				return false;
+		} else if (!pwd1.equals(other.pwd1))
+			return false;
+		if (salt1 == null) {
+			if (other.salt1 != null)
+				return false;
+		} else if (!salt1.equals(other.salt1))
+			return false;
+		return true;
+	}
+
 }

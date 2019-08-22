@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Welcome from './components/Welcome'
+import Welcome from './components/welcome'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
+import history from './history.js'
 
 //import BrowserRouter from 'browser-router'
 
 const routing = (
-    <Router>
+    <Router history = {history} >
       <div>
         <Route exact path="/" component={App} />
         <Route exact path='/welcome' component={Welcome} />

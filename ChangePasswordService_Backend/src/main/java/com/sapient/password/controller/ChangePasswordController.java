@@ -20,7 +20,7 @@ import com.sapient.password.model.User;
 
 @RestController
 @RequestMapping("/api/change")
-@CrossOrigin(origins = "http://10.150.120.183.:8016")
+@CrossOrigin(origins = "*")
 public class ChangePasswordController {
 
 	@Autowired
@@ -30,40 +30,39 @@ public class ChangePasswordController {
 	CustomPasswordEncoder customPasswordEncoder;
 
 	@PostMapping
-	public String changePassword(@RequestBody User currentUser) {
-		System.out.println("user in changePassword: " + currentUser);
+	public String changePassword(@RequestBody User loginUser) {
 		String url = "http://localhost:8017/api/data/user";
-		User user = new User(currentUser.getUserID(), null, null);
+		User user = new User();
+		
+		if (loginUser.getUserID() != null) {
+			user.setUserID(loginUser.getUserID());
+		} else {
+			user.setEmailID(loginUser.getEmailID());
+		}
+		
 		HttpEntity<User> httpEntity = new HttpEntity<User>(user);
 		ResponseEntity<Optional<User>> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
 				new ParameterizedTypeReference<Optional<User>>() {
 				});
 		Optional<User> optional = response.getBody();
-		// System.out.println("H1"+optional.get());
-		String status = changePasswordOfUser(optional, currentUser.getPasswordHistory().getOldpwd(),
-				currentUser.getPasswordHistory().getPwd1());
+
+		String status = changePasswordOfUser(optional, loginUser.getPassword().getPwd1(), loginUser.getPassword().getPwd2());
 		return status;
 	}
 
-	private String changePasswordOfUser(Optional<User> optional, String oldPassword, String newPassword) {
+	private String changePasswordOfUser(Optional<User> optional, String rawOldPassword, String rawNewPassword) {
 		if (optional.isPresent()) {
 			User user = optional.get();
-			System.out.println("user in response from api: " + user);
-			String storedhashedPassword = user.getPasswordHistory().getPwd1();
-			String storedSalt = user.getPasswordHistory().getSalt1();
-			System.out.println("old pwd: " + oldPassword);
-			System.out.println("new pwd: " + newPassword);
-			System.out.println("stored salt: " + storedSalt);
-			System.out.println("stored hashed pwd: " + storedhashedPassword);
-			String hashOfOldPassword = customPasswordEncoder.encodeWithSalt(oldPassword, storedSalt);
-			if (hashOfOldPassword.equals(storedhashedPassword)) {
-				// System.out.println("hello");
+			String storedHashedOldPassword = user.getPassword().getPwd1();
+			String storedSalt = user.getPassword().getSalt1();
+			String inputHashedOldPassword = customPasswordEncoder.encodeWithSalt(rawOldPassword, storedSalt);
+			
+			if (inputHashedOldPassword.equals(storedHashedOldPassword)) {
 				String newSalt = BCrypt.gensalt(12);
-				String hashOfNewPassword = customPasswordEncoder.encodeWithSalt(newPassword, newSalt);
-				System.out.println("new hashed pwd: " + hashOfNewPassword);
-				user.getPasswordHistory().setPwd1(hashOfNewPassword);
-				user.getPasswordHistory().setSalt1(newSalt);
-				System.out.println("H2" + user);
+				String inputHashedNewPassword = customPasswordEncoder.encodeWithSalt(rawNewPassword, newSalt);
+				user.getPassword().setPwd1(inputHashedNewPassword);
+				user.getPassword().setSalt1(newSalt);
+				user.getPassword().setPwd2(null);
 				String url = "http://localhost:8017/api/data/update";
 				HttpEntity<User> httpEntity = new HttpEntity<User>(user);
 				ResponseEntity<Integer> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
@@ -72,11 +71,11 @@ public class ChangePasswordController {
 				int status = response.getBody();
 				if (status > 0) {
 					return "Password changed successfully";
-				}
-				return "some error";
+				} else
+					return "Some error";
 			}
 			return "Please enter correct password";
 		}
-		return "User doesnot exist";
+		return "User doesn't exist";
 	}
 }
