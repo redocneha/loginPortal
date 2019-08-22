@@ -6,7 +6,7 @@ pipeline {
         
          stage ('Compile Stage') {
             steps {
-                bat 'mvn -f Register_Backend/pom.xml clean install findbugs:findbugs pmd:pmd'
+                bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd'
                 /*
                 bat 'cd Register_Frontend && npm install && npm run build'
                 
@@ -35,7 +35,6 @@ pipeline {
             steps {
                 script {
                 step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
-                step([$class: 'FindBugsPublisher', pattern: '**/findbugsXml.xml'])
                 }
             }
         
