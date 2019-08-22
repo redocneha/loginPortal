@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter as Router,Route} from 'react-router-dom';
+import {Router,Route} from 'react-router-dom';
 import ForgotPassword from './components/ForgotPassword';
 import Hai from './components/Hai';
 import Login from './components/Login';
 import Selected from './components/Selected';
 import Setpassword from './components/Setpassword';
+import  history  from './history.js';
 
 const router = (
-    <Router>
+    <Router history={history}>
         <div>
             <Route exact path="/" component={App}></Route>
             <Route exact path="/forgotpassword" component={ForgotPassword}></Route>

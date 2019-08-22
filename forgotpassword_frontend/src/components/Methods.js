@@ -26,8 +26,9 @@ export default class Methods extends React.Component{
                 }
             }
         }
+        //Axios.post("http://10.150.176.135:8009/forgotpassword/mts",data).then(res => this.setState({data:res.data,checked:data.choice}) )
         Axios.post("http://localhost:8009/forgotpassword/mts",data).then(res => this.setState({data:res.data,checked:data.choice}) )
-       //Axios.post("http://192.168.43.237:8076/forgotpassword/mts",data).then(res => this.setState({status:res.data,checked:data.choice}));
+        //Axios.post("http://192.168.43.237:8076/forgotpassword/mts",data).then(res => this.setState({status:res.data,checked:data.choice}));
     }
     render(){
         return(
@@ -37,7 +38,7 @@ export default class Methods extends React.Component{
                    <input type="radio" name="method" value="2" id="2" />Send OTP to mail<br/>
                    <input type="radio" name="method" value="3" id="3"/>Security Questions<br/>
                    <input type="email"  value={this.props.email} name="email" id="email" hidden></input>
-                   <input type="button" onClick={this.click} value="SUBMIT"></input>
+                   <input type="button" id="question" onClick={this.click} value="SUBMIT"></input>
                     {this.state.checked==="1"?<Securityquestion ques1={this.state.data.question1} ques2={this.state.data.question2}/>:''}
                     {this.state.checked==="2"?<OTPtoMail/>:null}
                     {this.state.checked==="3"?<Securityquestion email={this.props.email} ques1={this.state.data.question1} ques2={this.state.data.question2}/>:''}

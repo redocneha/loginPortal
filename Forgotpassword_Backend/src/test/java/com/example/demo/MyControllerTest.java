@@ -19,7 +19,8 @@
  * 
  * 
  * 
- * public class MyControllerTest extends AbstractTestClass {
+ * public class MyControllerTest extends AbstractTestClass { String
+ * email="shaikneha823@gmail.com";
  * 
  * @Override
  * 
@@ -31,7 +32,7 @@
  * 
  * Person person=new Person();
  * 
- * person.setEmail("shaikneha823@gmail.com");
+ * person.setEmail(email);
  * 
  * String inputJson = super.mapToJson(person);
  * 
@@ -63,8 +64,7 @@
  * 
  * String uri = "/forgotpassword/mts";
  * 
- * Person person=new Person(); person.setEmail("shaikneha823@gmail.com");
- * person.setChoice("3");
+ * Person person=new Person(); person.setEmail(email); person.setChoice("3");
  * 
  * String inputJson = super.mapToJson(person);
  * 
@@ -85,7 +85,7 @@
  * 
  * 
  * assertEquals(
- * content,"{\"question1\":\"who is fav actor\",\"question2\":\"who is ur inspiration\"}"
+ * content,"{\"question1\":\"What is your favorite team?\",\"question2\":\"What is your favorite movie?\"}"
  * );
  * 
  * }
@@ -96,10 +96,9 @@
  * 
  * String uri = "/forgotpassword/sec";
  * 
- * Person person=new Person(); person.setEmail("shaikneha823@gmail.com");
- * person.setAns1("mahesh");
+ * Person person=new Person(); person.setEmail(email); person.setAns2("pink");
  * 
- * person.setAns2("abdulkalam");
+ * person.setAns1("rcb");
  * 
  * String inputJson = super.mapToJson(person);
  * 
