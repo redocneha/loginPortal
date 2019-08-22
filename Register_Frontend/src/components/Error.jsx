@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import RegistrationPage from './RegistrationPage';
 
-class Home extends Component {
+class Error extends Component {
   constructor(props){
     super(props);
     this.state={};
@@ -17,4 +17,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Error;

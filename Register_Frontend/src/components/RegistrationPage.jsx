@@ -34,6 +34,7 @@ class RegistrationPage extends Component {
 
 
     };
+    
   }
 
   componentDidMount() {
@@ -68,21 +69,17 @@ class RegistrationPage extends Component {
     });
 
     // // code to validate all input cases
-
-    if (this.state.allcorrect && window.confirm("Are you sure all details are correct") && this.state.captchaver) {
+    if (this.state.allcorrect && this.state.captchaver) {
       console.log(this.state.users);
       Axios.auth.postusers(this.state.users)
         .then(response => {
           console.log(response);
           if (response.data.status === 400) {
             console.log(response.data.message);
-            alert("User Already Exits");
+            this.props.history.push('/error');
           }
           else if (response.data.status === 200) {
-            this.props.history.push({
-              pathname: '/home',
-              state: this.state
-            });
+            window.location.assign("http://localhost:8014/#");
           }
         });
 
@@ -100,29 +97,22 @@ class RegistrationPage extends Component {
     }
   }
 
-
-  submit() {
-    alert("submit");
-  }
-
-
   filterQuestion = (questionID, question) => {
 
-    let list = this.state.fullList;
-    list = this.state.fullList.filter((list) => {
+    let securityQuestions = this.state.fullList.filter((list) => {
       return list.questionID !== parseInt(questionID)
     }).map((list) => { return list });
 
     if (question === 1) {
-      this.setState({ users: { ...this.state.users, securityAns: { securityQueID1: questionID } }, securityQuestion2: list });
+      this.setState({ users: { ...this.state.users, securityAns: { securityQueID1: questionID } }, securityQuestion2: securityQuestions });
     }
 
     else if (question === 2)
-      this.setState({ users: { ...this.state.users, securityAns: { securityQueID2: questionID } }, securityQuestion1: list });
+      this.setState({ users: { ...this.state.users, securityAns: { securityQueID2: questionID } }, securityQuestion1: securityQuestions });
 
     else {
       this.setState({ securityQuestion1: this.state.fullList });
-      this.setState({ securityQuestion2: list });
+      this.setState({ securityQuestion2: securityQuestions });
     }
 
   }
@@ -130,10 +120,10 @@ class RegistrationPage extends Component {
   securityAnswers = (answer, answerID) => {
 
     if (answerID === 1)
-      this.setState({ users: { ...this.state.users, securityAns: { securityAnsID1: answer } } });
+      this.setState({ users: { ...this.state.users, securityAns: { securityAnsID2: this.state.users.securityAns.securityAnsID2,securityAnsID1: answer } } });
 
     else if (answerID === 2)
-      this.setState({ users: { ...this.state.users, securityAns: { securityAnsID2: answer } } });
+      this.setState({ users: { ...this.state.users, securityAns: { securityAnsID1: this.state.users.securityAns.securityAnsID1,securityAnsID2: answer } } });
   }
 
 
@@ -160,7 +150,7 @@ class RegistrationPage extends Component {
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">EmailID</label>
           <div className="col-sm-4">
-            <input type="emailID" className="form-control" placeholder="EmailID" name="emailID" required onChange={this.userDataEventHandler} value={this.state.users.emailID} />
+            <input type="email" className="form-control" placeholder="EmailID" name="emailID" required onChange={this.userDataEventHandler} value={this.state.users.emailID} />
           </div>
         </div>
 
@@ -181,7 +171,7 @@ class RegistrationPage extends Component {
         <div className="form-group row">
           <label className="col-sm-1 col-form-label">Confirm Password</label>
           <div className="col-sm-4">
-            <input type="text" className="form-control" placeholder="Confirm Password" name="confirmPassword" required onChange={this.ConfirmPasswordEventHandler} />
+            <input type="password" className="form-control" placeholder="Confirm Password" name="confirmPassword" required onChange={this.ConfirmPasswordEventHandler} />
           </div>
         </div>
 

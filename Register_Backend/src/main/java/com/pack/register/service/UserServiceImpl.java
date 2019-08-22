@@ -16,7 +16,6 @@ import com.pack.register.model.User;
 import com.pack.register.repository.UserRepository;
 
 @Service(value = "userService")
-
 public class UserServiceImpl implements UserService {
 	@Autowired
     @Qualifier(value = "userRepository")
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
         this.userrepo = userrepo;
     }
     //@Transactional
-	public void saveUser(User user) {
+	public User saveUser(User user) {
 		
 //		//System.out.println(user.getSecurityquestion1());
 //		//System.out.println(user.getSecurityquestion2());
@@ -50,7 +49,7 @@ public class UserServiceImpl implements UserService {
 		pwd.setPwd1(hashpwd1);
 		pwd.setSalt1(salt1);
 		user.setPasswordHistory(pwd);
-    	userrepo.save(user);
+    	return userrepo.save(user);
 	}
 
 	 

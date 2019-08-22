@@ -13,6 +13,62 @@ import javax.persistence.Table;
 @Table(name="PasswordHistory")
 public class Password implements Serializable {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (passId ^ (passId >>> 32));
+		result = prime * result + ((pwd1 == null) ? 0 : pwd1.hashCode());
+		result = prime * result + ((pwd2 == null) ? 0 : pwd2.hashCode());
+		result = prime * result + ((pwd3 == null) ? 0 : pwd3.hashCode());
+		result = prime * result + ((salt1 == null) ? 0 : salt1.hashCode());
+		result = prime * result + ((salt2 == null) ? 0 : salt2.hashCode());
+		result = prime * result + ((salt3 == null) ? 0 : salt3.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Password other = (Password) obj;
+		if (passId != other.passId)
+			return false;
+		if (pwd1 == null) {
+			if (other.pwd1 != null)
+				return false;
+		} else if (!pwd1.equals(other.pwd1))
+			return false;
+		if (pwd2 == null) {
+			if (other.pwd2 != null)
+				return false;
+		} else if (!pwd2.equals(other.pwd2))
+			return false;
+		if (pwd3 == null) {
+			if (other.pwd3 != null)
+				return false;
+		} else if (!pwd3.equals(other.pwd3))
+			return false;
+		if (salt1 == null) {
+			if (other.salt1 != null)
+				return false;
+		} else if (!salt1.equals(other.salt1))
+			return false;
+		if (salt2 == null) {
+			if (other.salt2 != null)
+				return false;
+		} else if (!salt2.equals(other.salt2))
+			return false;
+		if (salt3 == null) {
+			if (other.salt3 != null)
+				return false;
+		} else if (!salt3.equals(other.salt3))
+			return false;
+		return true;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long passId;
