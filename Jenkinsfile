@@ -6,7 +6,7 @@ pipeline {
         
          stage ('Compile Stage') {
             steps {
-                bat 'mvn -f Register_Backend/pom.xml clean install checkstyle:checkstyle findbugs:findbugs pmd:pmd'
+                bat 'mvn -f Register_Backend/pom.xml clean install findbugs:findbugs pmd:pmd'
                 /*
                 bat 'cd Register_Frontend && npm install && npm run build'
                 
