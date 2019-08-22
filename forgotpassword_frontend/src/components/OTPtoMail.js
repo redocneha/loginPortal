@@ -20,6 +20,7 @@ export default class OTPtoMail extends React.Component{
         }
         console.log(data);
         //Axios.post("http://10.150.176.132:8076/forgotpassword/otp",data).then(res => console.log(res));
+        //Axios.post("http://10.150.176.135:8009/forgotpassword/otp",data).then(res => this.setState({status:res.data.status}));
         Axios.post("http://localhost:8009/forgotpassword/otp",data).then(res => this.setState({status:res.data.status}));
         //Axios.post("http://192.168.43.237:8076/forgotpassword/otp",data).then(res => this.setState({status:res.data.status}));
     
@@ -34,7 +35,7 @@ export default class OTPtoMail extends React.Component{
                 
                <input type="password" id="otp" name="otp" onChange={this.handleChange}></input><br></br>
                <input className="btn btn-primary bbb" type="submit" onClick={this.click}></input><br/>
-               {this.state.status==='true'?  <Link to ={Setpassword} >SetPassword </Link>:null}
+               {this.state.status==='true'?  <Link to ={`/forgotpassword/Setpassword`} >SetPassword </Link>:null}
 
             </div>
         );
