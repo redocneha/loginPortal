@@ -6,7 +6,7 @@ pipeline {
         
         stage ('Tools Configuration') {
             steps {
-                bat 'cd C:/Program Files/sonarqube-7.9.1/sonarqube-7.9.1/bin/windows-x86-64 && start StartSonar.bat'
+                bat 'cd C:/Users/pananadu/Documents/sonarqube-7.9.1/bin/windows-x86-64 && start StartSonar.bat'
             }
         }
         
