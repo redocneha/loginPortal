@@ -1,7 +1,7 @@
+
 import React,{Component} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-
 
 
 export default class Admin extends Component {
@@ -11,15 +11,17 @@ export default class Admin extends Component {
         //this.fun=this.fun.bind(this);
         this.state={
             columns:[
-              { title: 'FirstName', field: 'fname' },
-              { title: 'Last Name', field: 'lname' },
-              { title: 'Email', field: 'email', type: 'string' },
-              { title: 'Phone',field: 'phone',type:'numeric'},
+              { title: 'FirstName', field: 'first_name' },
+              { title: 'Last Name', field: 'last_name' },
+              { title: 'Email', field: 'emailid', type: 'string' },
+              { title: 'Phone',field: 'phone_no',type:'numeric'},
             ],
             data:[]
         }
          
     }
+
+ 
 
     componentDidMount(){
       axios.get('http://localhost:8020/getAll')
@@ -28,13 +30,20 @@ export default class Admin extends Component {
             data:res.data
           });
 
+ 
+
           console.log(res.data);
         })
      }
 
-    handle(event,rowData){
+ 
+   handle(event,rowData){
     console.log(rowData);
+    window.location.assign('http://localhost:8019')
   }
+ 
+
+ 
 
  
 
@@ -55,6 +64,8 @@ export default class Admin extends Component {
                     icon: 'edit',
                     tooltip: 'Edit Profile',
                     onClick: (event, rowData) => this.handle(event,rowData)
+
+ 
 
                   }
                 ]}

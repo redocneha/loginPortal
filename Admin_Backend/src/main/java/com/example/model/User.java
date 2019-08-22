@@ -1,6 +1,5 @@
 package com.example.model;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,75 +9,72 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "profile") // This tells Hibernate to make a table out of this class
+@Table(name = "register") // This tells Hibernate to make a table out of this class
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer userid;
 
-	private String fname;
-	private String lname;
-	private String role;
+	private String first_name;
+	private String last_name;
+	private String user_role;
 
 	@Column(unique = true)
-	private String email;
-	private String phone;
-	private String address;
+	private String emailid;
+	private String phone_no;
 
-	public Integer getId() {
-		return id;
+	public Integer getUserid() {
+		return userid;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
-	public String getFname() {
-		return fname;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public String getLname() {
-		return lname;
+	public String getLast_name() {
+		return last_name;
 	}
 
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
-	public String getRole() {
-		return role;
+	public String getUser_role() {
+		return user_role;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setUser_role(String user_role) {
+		this.user_role = user_role;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmailid() {
+		return emailid;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPhone_no() {
+		return phone_no;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhone_no(String phone_no) {
+		this.phone_no = phone_no;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", first_name=" + first_name + ", last_name=" + last_name + ", user_role="
+				+ user_role + ", emailid=" + emailid + ", phone_no=" + phone_no + "]";
 	}
 
 }

@@ -39,6 +39,7 @@ public class AdminController {
 		System.out.println("getting user");
 		System.out.println("***********************");
 		Iterable<User> u1=profileRepository.findAll();
+		System.out.print(u1.toString());
 		return ResponseEntity.ok().body(u1);
 	}
 
