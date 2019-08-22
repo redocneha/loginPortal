@@ -28,6 +28,10 @@ public class EmployeeService {
 		return employeeRepository.findById(id).get();
 	}
 	
+	public Register findByEmailId(String id) {
+		return employeeRepository.findByEmailId(id);
+	}
+	
 	public Register save(Register r) {
 		return employeeRepository.save(r);
 	}

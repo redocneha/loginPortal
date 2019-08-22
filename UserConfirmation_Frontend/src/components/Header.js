@@ -5,7 +5,7 @@ export default class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: '', res: '', flag: false };
+        this.state = { value: '', res: '', flag: false , btnflag : false , submitbtn : true };
 
         /*setTimeout(function () {
             this.setState({
@@ -26,16 +26,32 @@ export default class Header extends React.Component {
         event.preventDefault();
         //Fetch email from uid
         this.setState({flag:true})
-        axios.get('http://localhost:8881/api/v1/sendmail/' + this.props.match.params.uid)
-            .then(res => { console.log(res); this.temp = res; this.setState({ res: this.temp.data.response }); })
+        //this.props.match.params.uid
+        var uid = this.props.match.params.uid;
+        axios.post('http://localhost:8001/api/v1/sendmail/',{emailID:"aditisjoshi14@gmail.com"})
+            .then(res => { console.log(res); this.temp = res; 
+                if(this.temp.data.response === 'Congrats! Your account has been successfully activated...' ||
+                this.temp.data.response === 'User already verified'){
+                    this.setState({ btnflag : true, res: this.temp.data.response , submitbtn : false})
+                }
+                else{
+                    this.setState({ res: this.temp.data.response , submitbtn : false });
+                }
+                //this.setState({ res: this.temp.data.response });
+            })
             .then(() => {
                 setTimeout(function () {
                     this.setState({
                         flag: false
                     })
-                }.bind(this), 5000);
+                }.bind(this), 2000);
                 
-            });
+            }).catch(() =>
+            setTimeout(function () {
+                this.setState({
+                flag: false
+             })
+             }.bind(this), 2000));;
 
         /*
          <label>
@@ -52,12 +68,31 @@ export default class Header extends React.Component {
                 {
                     this.state.flag ?  <Loader 
                     color="blue"
+                    position="absolute"
+                    top="25%"
                     /> : 
                     <div>
+                        
+                        <div className="activatebtn">
+                        { this.state.submitbtn ?
                         <form onSubmit={this.handleSubmit}>
-                            <input type="submit" value="Submit" />
+                            <input className="btn btn-primary" id="submit" type="submit" value="Activate" />
                         </form>
-                        <h5>{this.state.res}</h5>
+                        :
+                        <div></div>
+                        }
+                        </div>
+                        <div className="confirm_msg">
+                        <h3>{this.state.res}</h3>
+                        {
+                            this.state.btnflag ? <div>
+                                To Login click here <a href="http://localhost:8014">Login</a>
+                                </div>
+                                :
+                                <div></div>
+
+                        }
+                        </div>
                     </div>
                 }
             </div>

@@ -6,12 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import Header from './components/Header';
 import ConfirmMail from './components/ConfirmMail';
 import {BrowserRouter as Router, Route, Link } from "react-router-dom";
+import history from './history.js';
 
 const router = (
-    <Router>
+    <Router history={history}>
         <div>
-            <Route path="/confirmuser/:uid" component={Header}/>
-            <Route path="/confirmmail/:uid" component={ConfirmMail}/>
+            <Route exact path="/" component={Header}/>
+            <Route path="/confirmmail/:uid" component={Header}/>
         </div>
     </Router>
 )

@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+.activatebtn{
+  position: absolute;
+  top: 25%;
+  align-content: center;
+  left: 45%;
+}
+
+.confirm_msg{
+  position: absolute;
+  top:20%;
+  text-align: center;
+  left:10%;
+}
