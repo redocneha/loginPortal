@@ -3,13 +3,6 @@ pipeline {
     agent any
     
     stages {
-        
-        stage ('Tools Configuration') {
-            steps {
-                bat 'cd C:/Users/pananadu/Documents/sonarqube-7.9.1/bin/windows-x86-64 && start StartSonar.bat'
-            }
-        }
-        
          stage ('Compile Stage') {
             steps {
                 bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd sonar:sonar'
