@@ -6,7 +6,7 @@ pipeline {
         
          stage ('Compile Stage') {
             steps {
-                bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd'
+                bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd sonar:sonar'
                 /*
                 bat 'cd Register_Frontend && npm install && npm run build'
                 
