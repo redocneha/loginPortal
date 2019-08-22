@@ -107,27 +107,43 @@ export default class EditProfile extends Component {
 
     render(){
         return  (
-            <div>
+            <div className="container row col-lg-4">
+
+          <br/>
               <form onSubmit={this.submitHandler}>
-                      First name:<br/>
-                  <input type="text" name="first_name" value={this.state.user.first_name} disabled={this.state.disabled} 
-                  onChange={(e)=> this.updateFields(e,"first_name")} />
-                  <br/>
-                      Last name:<br/>
-                  <input type="text" name="last_name" value={this.state.user.last_name} disabled={this.state.disabled} 
-                  onChange={(e)=> this.updateFields(e,"last_name")}/>
-                  <br/>
-                  Email:<br/>
-                  <input type="text" name="emailid" value={this.state.user.emailid} disabled/>
-                  <br/>
-                  Phone Number:<br/>
-                  <input type="text" name="phone_no" value={this.state.user.phone_no} disabled={this.state.disabled}
+              <div className="form-group row">
+                <label  className="col-sm-3 col-form-label">First Name:</label>
+                <div className="col-sm-9">
+                  <input type="text" className="form-control" name="first_name" value={this.state.user.first_name} disabled={this.state.disabled} 
+                              onChange={(e)=> this.updateFields(e,"first_name")} />
+                </div>
+              </div>
+              <div className="form-group row">
+                <label  className="col-sm-3 col-form-label">Last Name:</label>
+                <div className="col-sm-9">
+                  <input type="text" className="form-control" name="last_name" value={this.state.user.last_name} disabled={this.state.disabled} 
+                    onChange={(e)=> this.updateFields(e,"last_name")}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label  className="col-sm-3 col-form-label">Email:</label>
+                <div className="col-sm-9">
+                  <input type="email" className="form-control" name="emailid" value={this.state.user.emailid} disabled/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label  className="col-sm-3 col-form-label">Phone Number:</label>
+                <div className="col-sm-9">
+                  <input type="text" className="form-control" name="phone_no" value={this.state.user.phone_no} disabled={this.state.disabled}
                   onChange={(e)=> this.updateFields(e,"phone_no")}/>
-                  <br/>
-                      <br/><br/>
-                  <button onClick={()=>this.mask()}>EDIT!</button>
+                </div>
+              </div>
+                  <button onClick={()=>this.mask()} className="btn btn-default margin ">EDIT!</button>
+                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={()=>this.pingForOtp()} >SUBMIT</button>
               </form>
-              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onClick={()=>this.pingForOtp()} >SUBMIT</button>
+              <div className="row col-lg-12">
+                <a href="http://localhost:8014/welcome"> redirect to homepage</a>
+              </div>
               <div id="myModal" className="modal fade" role="dialog">
                   <div className="modal-dialog">
                       <div className="modal-content">

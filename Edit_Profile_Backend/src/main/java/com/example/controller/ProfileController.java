@@ -63,14 +63,9 @@ public class ProfileController {
 
 	@PostMapping(value = "/sendOtp")
 	public String otp(@RequestBody String email) {
-		System.out.println("1111email send#####################################################");
-
 		JSONObject json = new JSONObject(email);
-		System.out.println("2222email send#####################################################");
-
 		SimpleMailMessage msg = new SimpleMailMessage();
 		System.out.println("SendOTP Function  " + json.getString("emailid"));
-		System.out.println("33333email send#####################################################");
 		msg.setTo(json.getString("emailid"));
 		msg.setSubject("OTP For Forgot Password");
 		String otp = String.valueOf((long) (Math.random() * 900000) + 100000);
@@ -81,10 +76,8 @@ public class ProfileController {
 			System.out.println("JAVA MAILER AUTHENTICATION FAILED! " + mailAuthExe.getStackTrace());
 		} catch (MailSendException mailSendExe) {
 			System.out.println("JAVA MAIL SENDING FAILED! " + mailSendExe.getStackTrace());
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception =="+e);
+		} catch (Exception e) {
+			System.out.println("Exception ==" + e);
 		}
 		return "OTPsent";
 	}
