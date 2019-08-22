@@ -6,14 +6,14 @@ pipeline {
          stage ('Compile Stage') {
              steps {
                  
-                bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd sonar:sonar'
-                bat 'cd Register_Frontend && npm install && npm run build'
+            //    bat 'mvn -f Register_Backend/pom.xml clean install pmd:pmd sonar:sonar'
+            //    bat 'cd Register_Frontend && npm install && npm run build'
                 
-                bat 'mvn -f UserConfirmation_Backend/pom.xml clean install pmd:pmd sonar:sonar'
-                bat 'cd UserConfirmation_Frontend && npm install && npm run build'
+            //    bat 'mvn -f UserConfirmation_Backend/pom.xml clean install pmd:pmd sonar:sonar'
+            //    bat 'cd UserConfirmation_Frontend && npm install && npm run build'
                 
-                bat 'mvn -f Forgotpassword_Backend/pom.xml clean install pmd:pmd sonar:sonar'
-                bat 'cd forgotpassword_frontend && npm install && npm run build'
+            //    bat 'mvn -f Forgotpassword_Backend/pom.xml clean install pmd:pmd sonar:sonar'
+            //    bat 'cd forgotpassword_frontend && npm install && npm run build'
                 
                 bat 'mvn -f DataRetrievalService_BackEnd/pom.xml clean install pmd:pmd sonar:sonar'
                 bat 'mvn -f LoginService_BackEnd/pom.xml clean install pmd:pmd sonar:sonar'
